@@ -21,5 +21,6 @@ output application/java
  " You reached DateTime is " ++ now()]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="e1050b29-0bfa-4325-9fc8-a507fb79ad59" message="TEST"/>
 	</flow>
 </mule>
