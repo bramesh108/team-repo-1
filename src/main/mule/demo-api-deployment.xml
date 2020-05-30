@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="2c3f4a44-5ba5-400d-b611-002a4ffa6ec4" >
+		<http:listener-connection host="0.0.0.0" port="${http.port}" />
+	</http:listener-config>
+	<configuration-properties doc:name="Configuration properties" doc:id="8496a618-3f43-43cb-8bfa-0fa6705b2217" file="application-DEV.properties" />
+	<flow name="demo-api-deploymentFlow" doc:id="c7411807-24df-45b6-9efd-d43bf66e2ada" >
+		<http:listener doc:name="Listener" doc:id="9758f697-3e5d-45a3-8074-11924fd8a54b" config-ref="HTTP_Listener_config" path="/api/test"/>
+		<ee:transform doc:name="Transform Message" doc:id="47ed6537-a7bc-450d-a227-829d82a59a54" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+" Welcome to Anypoint Platform Your Name is " 
+++ attributes.queryParams.Name ++
+ " You reached DateTime is " ++ now()]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>
